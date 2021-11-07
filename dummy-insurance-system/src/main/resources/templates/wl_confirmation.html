@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/wl_common.css" />
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+
+    <!-- jQuery -->
+    <script src="/js/jquery-3.6.0.min.js"></script>
+    <!-- jQuery UI -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js"></script>
+    <!-- jQuery local -->
+    <script src="/js/wl_input.js"></script>
+    <title>終身生命（加入）　確認画面</title>
+  </head>
+
+  <body>
+    <!--  <div class="system-name">ダミー保険事務処理システム</div> -->
+    <header class="Header">
+      <div class="Header__inner">
+        <a href="/cm/task">ダミー保険事務処理システム</a>
+          <form th:method="get" th:action="@{/wl/input}" th:object="${wlInput}" >
+            <input name="insured_person_name_kanji_surname" type="hidden" th:value="*{insured_person_name_kanji_surname}">
+            <input name="insured_person_name_kanji_name" type="hidden" th:value="*{insured_person_name_kanji_name}">
+            <input name="insured_person_name_kana_surname" type="hidden" th:value="*{insured_person_name_kana_surname}">
+            <input name="insured_person_name_kana_name" type="hidden" th:value="*{insured_person_name_kana_name}">
+            <input name="insured_person_birth_date" type="hidden" th:value="*{insured_person_birth_date}">
+            <input name="insured_person_sex" type="hidden" th:value="*{insured_person_sex}">
+            <input name="start_date" type="hidden" th:value="*{start_date}">
+            <input name="insurance_money" type="hidden" th:value="*{insurance_money}">
+            <input name="payment_expiration_age" type="hidden" th:value="*{payment_expiration_age}">
+            <input name="payment_method" type="hidden" th:value="*{payment_method}">
+            <button class="btn btn-link btn-link-return">戻る</button>
+          </form>
+      </div>
+    </header>
+
+     <div class="container">
+         <div class="title">終身生命（加入）　確認画面</div>
+     </div>
+
+
+    <div class="l-base">
+      <form th:method="post" th:action="@{/wl/completion}"
+        th:object="${wlConfimation}" class="Form-wrap">
+        <div class="Box-flame">
+          <table class="Form-tbl">
+            <tbody>
+
+              <tr class="Form-tbl__tr">
+                <th class="Form-tbl__th"><div class="Form-name">被保険者氏名（漢字）</div></th>
+                <td id="name_kanji_surname" class="Form-tbl__td">
+
+                  <div th:text="|*{insured_person_name_kanji_surname} 　
+                                      *{insured_person_name_kanji_name}|">
+                  </div>
+                  <input name="insured_person_name_kanji_surname" type="hidden"
+                          th:value="*{insured_person_name_kanji_surname}">
+
+                  <input name="insured_person_name_kanji_name" type="hidden"
+                          th:value="*{insured_person_name_kanji_name}">
+                </td>
+              </tr>
+
+              <tr class="Form-tbl__tr">
+                <th class="Form-tbl__th"><div class="Form-name">被保険者氏名（カナ）</div></th>
+                <td id="name_kana" class="Form-tbl__td">
+
+                  <div th:text="|*{insured_person_name_kana_surname}
+                                       　*{insured_person_name_kana_name}|">
+                  </div>
+                  <input name="insured_person_name_kana_surname" type="hidden"
+                          th:value="*{insured_person_name_kana_surname}">
+                  <input name="insured_person_name_kana_name" type="hidden"
+                          th:value="*{insured_person_name_kana_name}">
+                </td>
+              </tr>
+
+              <tr class="Form-tbl__tr">
+                <th class="Form-tbl__th"><div class="Form-name">生年月日</div></th>
+                <td id="birth_date" class="Form-tbl__td">
+
+                  <div th:text="*{insured_person_birth_date}"></div> <input
+                        name="insured_person_birth_date" type="hidden"
+                        th:value="*{insured_person_birth_date}" />
+
+                </td>
+              </tr>
+
+              <tr class="Form-tbl__tr">
+                <th class="Form-tbl__th"><div class="Form-name">性別</div></th>
+                <td id="sex" class="Form-tbl__td">
+
+                  <div th:if="*{insured_person_sex=='1'}"><div th:text="男性"></div></div>
+                  <div th:if="*{insured_person_sex=='2'}"><div th:text="女性"></div></div>
+                  <input name="insured_person_sex" type="hidden" th:value=*{insured_person_sex}>
+
+                </td>
+              </tr>
+
+              <tr class="Form-tbl__tr">
+                <th class="Form-tbl__th"><div class="Form-name">加入日</div></th>
+                <td id="start_date" class="Form-tbl__td">
+
+                  <div th:text="*{start_date}"></div>
+                  <input name="start_date" type="hidden" th:value="*{start_date}" />
+
+                </td>
+              </tr>
+
+              <tr class="Form-tbl__tr">
+                <th class="Form-tbl__th"><div class="Form-name">加入年齢</div></th>
+                <td id="start_date" class="Form-tbl__td">
+
+                  <div th:text="|*{entry_age}歳|"></div>
+                  <input name="entry_age" type="hidden" th:value="*{entry_age}" />
+
+                </td>
+              </tr>
+
+              <tr class="Form-tbl__tr">
+                <th class="Form-tbl__th"><div class="Form-name">死亡保険金</div></th>
+                <td id="insurance_money" class="Form-tbl__td">
+
+                  <div th:text="|*{insurance_money}　万円|"></div>
+                  <input name="insurance_money" type="hidden" th:value="*{insurance_money}" />
+
+                </td>
+              </tr>
+
+              <tr class="Form-tbl__tr">
+                <th class="Form-tbl__th"><div class="Form-name">払込満了年齢</div></th>
+                <td id="expiration_age" class="Form-tbl__td">
+
+                  <div th:if="*{payment_expiration_age==60}"><div th:text="60歳"></div></div>
+                  <div th:if="*{payment_expiration_age==99}"><div th:text="終身"></div></div>
+                  <input name="payment_expiration_age" type="hidden" th:value=*{payment_expiration_age}>
+
+                </td>
+              </tr>
+
+              <tr class="Form-tbl__tr">
+                <th class="Form-tbl__th"><div class="Form-name">払込方法</div></th>
+                <td id="payment_method" class="Form-tbl__td">
+
+                  <div th:if="*{payment_method=='1'}"><div th:text="月払"></div></div>
+                  <div th:if="*{payment_method=='3'}"><div th:text="年払"></div></div>
+                  <input name="payment_method" type="hidden" th:value=*{payment_method}>
+
+                </td>
+              </tr>
+
+              <tr class="Form-tbl__tr">
+                <th class="Form-tbl__th"><div class="Form-name">掛金</div></th>
+                <td id="premium" class="Form-tbl__td">
+
+                  <div th:text="|*{#numbers.formatInteger(premium, 3, 'COMMA')}　円|"></div>
+                  <input name="premium" type="hidden" th:value="*{premium}" />
+
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+        <div id="entry_btn" class="Control-area">
+          <button class="Control-area__btn">加入</button>
+        </div>
+
+      </form>
+    </div>
+
+</body>
+</html>

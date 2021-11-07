@@ -1,0 +1,2 @@
+「com.insurance.app.mapper」へ格納したインターフェイスに対応するxmlファイルを格納する
+※WlInputMapper.xmlなど

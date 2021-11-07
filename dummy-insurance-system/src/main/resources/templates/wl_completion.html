@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/wl_common.css" />
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+
+  <!-- jQuery -->
+  <script src="/js/jquery-3.6.0.min.js"></script>
+  <!-- jQuery UI -->
+  <script
+    src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script
+    src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js"></script>
+
+  <title>終身生命（加入） 完了画面</title>
+</head>
+
+<body>
+  <header class="Header">
+    <div class="Header__inner">
+      <a href="/cm/security">ダミー保険事務処理システム</a> <a href="/cm/security">保障種類選択画面へ戻る</a>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="title">終身生命（加入）に加入しました</div>
+  </div>
+
+  <div class="l-base_completion">
+    <form th:method="post" th:action="@{/wl/completion}" th:object="${wlCompletion}" class="Form-wrap_completion">
+      <table class="table_completion">
+        <tr>
+          <td class="td_completion">
+            <div class="Box-flame">
+              <table class="Form-tbl">
+                <caption class="caption-com">被保険者情報</caption>
+                <tbody>
+
+                  <tr class="Form-tbl__tr">
+                    <th class="Form-tbl__th_comp"><div class="Form-name">被保険者番号</div></th>
+                    <td class="Form-tbl__td_completion">
+                      <div th:text="*{wlInsuredPersons.insured_person_id}"></div>
+                    </td>
+                  </tr>
+
+                  <tr class="Form-tbl__tr">
+                    <th class="Form-tbl__th_comp"><div class="Form-name">被保険者氏名（漢字）</div></th>
+                    <td class="Form-tbl__td_completion">
+                      <div th:text="*{wlInsuredPersons.insured_person_name_kanji}"></div>
+                    </td>
+                  </tr>
+
+                  <tr class="Form-tbl__tr">
+                    <th class="Form-tbl__th_comp"><div class="Form-name">被保険者氏名（カナ）</div></th>
+                    <td class="Form-tbl__td_completion">
+                      <div th:text="*{wlInsuredPersons.insured_person_name_kana}"></div>
+                    </td>
+                  </tr>
+
+                  <tr class="Form-tbl__tr">
+                    <th class="Form-tbl__th_comp"><div class="Form-name">生年月日</div></th>
+
+                    <td class="Form-tbl__td_completion">
+                      <div th:text="*{#temporals.format(wlInsuredPersons.insured_person_birth_date,'yyyy/MM/dd')}">
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr class="Form-tbl__tr">
+                    <th class="Form-tbl__th_comp"><div class="Form-name">性別</div></th>
+                    <td class="Form-tbl__td_completion">
+
+                      <div th:if="*{wlInsuredPersons.insured_person_sex=='1'}"><div th:text="男性"></div></div>
+                      <div th:if="*{wlInsuredPersons.insured_person_sex=='2'}"><div th:text="女性"></div></div>
+
+                    </td>
+                  </tr>
+
+
+                </tbody>
+              </table>
+            </div>
+
+          </td>
+          <td>
+            <table class="between-table">
+              <tr>
+                <td></td>
+              </tr>
+            </table>
+          </td>
+          <td class="td_completion">
+            <div class="Box-flame">
+              <table class="Form-tbl">
+                <caption class="caption-com">契約情報</caption>
+                <tbody>
+
+                  <tr class="Form-tbl__tr">
+                    <th class="Form-tbl__th_comp"><div class="Form-name">契約番号</div></th>
+                    <td class="Form-tbl__td_completion"><div
+                        th:text="*{wlContracts.contract_id}"></div></td>
+                  </tr>
+                  <tr class="Form-tbl__tr">
+                    <th class="Form-tbl__th_comp"><div class="Form-name">契約履歴番号</div></th>
+                    <td class="Form-tbl__td_completion"><div
+                        th:text="*{wlContracts.contract_history_id}"></div></td>
+                  </tr>
+                  <tr class="Form-tbl__tr">
+                    <th class="Form-tbl__th_comp"><div class="Form-name">契約開始日</div></th>
+                    <td class="Form-tbl__td_completion">
+                      <div th:text="*{#temporals.format(wlContracts.contract_start_date,'yyyy/MM/dd')}"></div>
+                    </td>
+                  </tr>
+<!--
+                  <tr class="Form-tbl__tr">
+                      <th class="Form-tbl__th_comp"><div class="Form-name">契約終了日</div></th>
+                      <td class="Form-tbl__td_completion">
+                        <div th:text="*{#temporals.format(wlContracts.contract_end_date,'yyyy/MM/dd')}"></div>
+                      </td>
+                  </tr>
+                  <tr class="Form-tbl__tr">
+                      <th class="Form-tbl__th_comp"><div class="Form-name">契約終了事由</div></th>
+                      <td class="Form-tbl__td_completion"><div th:text="*{wlContracts.contract_end_reason}"></div></td>
+                  </tr>
+                  <tr class="Form-tbl__tr">
+                      <th class="Form-tbl__th_comp"><div class="Form-name">契約満期日</div></th>
+                      <td class="Form-tbl__td_completion">
+                        <div th:text="*{#temporals.format(wlContracts.contract_maturity_date,'yyyy/MM/dd')}"></div>
+                      </td>
+                  </tr>
+                  <tr class="Form-tbl__tr">
+                      <th class="Form-tbl__th_comp"><div class="Form-name">保障種類</div></th>
+                      <td class="Form-tbl__td_completion"><div th:text="終身生命"></div></td>
+                  </tr>
+-->
+                  <tr class="Form-tbl__tr">
+                    <th class="Form-tbl__th_comp"><div class="Form-name">加入年齢</div></th>
+                    <td class="Form-tbl__td_completion">
+                      <div th:text="|*{wlContracts.entry_age}　歳|"></div>
+                    </td>
+                  </tr>
+                  <tr class="Form-tbl__tr">
+                    <th class="Form-tbl__th_comp"><div class="Form-name">払込方法</div></th>
+                    <td class="Form-tbl__td">
+                      <div th:if="*{wlContracts.payment_method=='1'}">
+                        <div th:text="月払"></div>
+                      </div>
+                      <div th:if="*{wlContracts.payment_method=='3'}">
+                        <div th:text="年払"></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="Form-tbl__tr">
+                    <th class="Form-tbl__th_comp"><div class="Form-name">死亡保険金</div></th>
+                    <td class="Form-tbl__td_completion">
+                      <div th:text="|*{wlContracts.insurance_money}　万円|"></div>
+                    </td>
+                  </tr>
+                  <tr class="Form-tbl__tr">
+                    <th class="Form-tbl__th_comp"><div class="Form-name">掛金</div></th>
+                    <td class="Form-tbl__td_completion">
+                      <div th:text="|*{wlContracts.premium}　円|"></div>
+                    </td>
+                  </tr>
+                  <tr class="Form-tbl__tr">
+                    <th class="Form-tbl__th_comp"><div class="Form-name">掛金払込期間</div></th>
+                    <td class="Form-tbl__td_completion">
+                      <div th:if="*{wlContracts.premium_payment_term!=99}">
+                        <div th:text="|*{wlContracts.premium_payment_term}　年|"></div>
+                      </div>
+                      <div th:if="*{wlContracts.premium_payment_term==99}">
+                        <div th:text="終身"></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <!--
+                  <tr class="Form-tbl__tr">
+                      <th class="Form-tbl__th_comp"><div class="Form-name">契約期間</div></th>
+                      <td class="Form-tbl__td_completion"><div th:text="終身"></div></td>
+                  </tr>
+-->
+                  <tr class="Form-tbl__tr">
+                    <th class="Form-tbl__th_comp"><div class="Form-name">払込満了年齢</div></th>
+                    <td class="Form-tbl__td_completion">
+                      <div th:if="*{wlContracts.payment_expiration_age!=99}">
+                        <div th:text="|*{wlContracts.payment_expiration_age}　歳|"></div>
+                      </div>
+                      <div th:if="*{wlContracts.payment_expiration_age==99}">
+                        <div th:text="終身">
+                      </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+</body>
+</html>

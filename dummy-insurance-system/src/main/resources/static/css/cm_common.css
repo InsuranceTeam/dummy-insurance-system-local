@@ -1,0 +1,100 @@
+@charset "utf-8";
+/*--------------------------------------------------------------------
+common: 共通
+----------------------------------------------------------------------*/
+
+html{
+  height: 100%;
+  font-size: 62.5%;
+}
+
+body {
+  min-width: 1040px;
+  background: #fafafa;
+  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI","Noto Sans Japanese",
+              "ヒラギノ角ゴ ProN W3",Meiryo,sans-serif;
+  font-size: 1.6rem;
+  color: #333;
+  letter-spacing: 0.08em;
+  line-height: 1.8;
+  letter-spacing: .08em;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 基本設定
+--------------------------------------------------*/
+a{
+  text-decoration: underline;
+  color: #0044cc;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+a:hover,
+a:active{
+  color: #0044cc;
+  outline: none;
+  -moz-opacity: 0.7;
+  opacity: 0.7;
+}
+a:hover{
+  text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6,dl,dt,dd{
+  margin: 0;
+  font-size: 100%;
+  font-weight: normal;
+}
+
+/* ヘッダー
+--------------------------------------------------*/
+.Header{
+  background: #fff;
+  font-size: 2.1rem;
+  border-bottom: 1px solid green;
+  display: flex;
+  justify-content: space-between;
+  height:50px;
+}
+.Header__inner{
+  display: flex;
+  width: 100%;
+  margin: 0px 20px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* データ
+--------------------------------------------------*/
+.subtitle{
+  width: 1000px;
+  height: 100px;
+  text-align:center;
+  margin: 0 auto;
+  color: #808080;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  font-size:50px;
+}
+.task_link{
+  width: 1000px;
+  height: 100px;
+  text-align:center;
+  margin: 0 auto;
+}
+
+.btn-flat-border {
+  display: inline-block;
+  padding: 1.3em 4em;
+  text-decoration: none;
+  color: blue;
+  border: solid 2px blue;
+  border-radius: 3px;
+  transition: .4s;
+}
+
+.btn-flat-border:hover {
+  background: blue;
+  color: white;
+}

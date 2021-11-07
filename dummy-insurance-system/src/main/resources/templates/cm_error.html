@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>システムエラー画面</title>
+</head>
+<body>
+  <div th:each="massage:${#strings.listSplit(massage,',')}">
+    <div th:text="${massage}"></div>
+  </div>
+  <br><br>
+  <div th:text="${trace}"></div>
+</body>
+</html>

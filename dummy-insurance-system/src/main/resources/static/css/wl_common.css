@@ -1,0 +1,429 @@
+@charset "utf-8";
+/*--------------------------------------------------------------------
+common: 共通
+----------------------------------------------------------------------*/
+
+html{
+  height: 100%;
+  font-size: 62.5%;
+}
+
+body {
+  min-width: 1040px;
+  background: #fafafa;
+  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI","Noto Sans Japanese",
+              "ヒラギノ角ゴ ProN W3",Meiryo,sans-serif;
+  font-size: 1.6rem;
+  color: #333;
+  letter-spacing: 0.08em;
+  line-height: 1.8;
+  letter-spacing: .08em;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::placeholder{
+  color: #bdbebd;
+  opacity: 1;
+}
+
+:-ms-input-placeholder{
+  color: #bdbebd;
+}
+
+::-ms-input-placeholder{
+  color: #bdbebd;
+}
+
+/* 基本設定
+--------------------------------------------------*/
+a{
+  text-decoration: underline;
+  color: #0044cc;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+a:hover,
+a:active{
+  color: #0044cc;
+  outline: none;
+  -moz-opacity: 0.7;
+  opacity: 0.7;
+}
+a:hover{
+  text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6,dl,dt,dd{
+  margin: 0;
+  font-size: 100%;
+  font-weight: normal;
+}
+
+button{
+  cursor: pointer;
+}
+
+p{
+  margin: 0;
+}
+
+label{
+  margin: 0;
+}
+
+/* ヘッダー
+--------------------------------------------------*/
+.Header{
+  background: #fff;
+  font-size: 2.1rem;
+  border-bottom: 1px solid green;
+  display: flex;
+  justify-content: space-between;
+  height:50px;
+}
+.Header__inner{
+  display: flex;
+  width: 100%;
+  margin: 0px 20px;
+  align-items: center;
+  justify-content: space-between;
+}
+/* レイアウト
+--------------------------------------------------*/
+.l-base{
+  width: 1040px;
+  margin: 0 auto;
+}
+
+.l-base_completion{
+  width: 80%;
+  margin: 0 auto;
+}
+/* フレーム
+--------------------------------------------------*/
+
+.Box-flame{
+  overflow: hidden;
+  border: 1px solid #bfbfbf;
+  border-radius: 8px;
+  background: #fefffd;
+  box-shadow: 10px 10px 8px -9px rgba(158,158,158,0.8);
+}
+/* タイトル
+--------------------------------------------------*/
+.system-name{
+  height: 30px;
+  background-color: green;
+  color:white;
+  font-size:20px;
+}
+
+.title{
+  width: 1000px;
+  height: 70px;
+  text-align:center;
+  margin: 0 auto;
+  color: #808080;
+  margin-top: 10px;
+  font-size:40px;
+}
+/*--------------------------------------------------------------------
+form: フォーム共通
+----------------------------------------------------------------------*/
+.Form-wrap{
+  width: 840px;
+  margin: 0 auto;
+}
+.Form-wrap_completion{
+  width: 80%;
+  margin: 0 auto;
+}
+/* テーブルレイアウト
+--------------------------------------------------*/
+.Form-tbl{
+  width: 100%;
+  background: #f4faeb;
+}
+
+.Form-tbl2{
+  width: 100%;
+  background: #f4faeb;
+  border-collapse: initial;
+}
+
+.Form-tbl-comp{
+  display:flex;
+  justify-content: center;
+}
+
+.Form-tbl__tr:not(:first-of-type){
+  border-top: 1px dotted #ccc;
+}
+
+.Form-wrap .Box-flame{
+  border-color: #80b735;
+  box-shadow: none;
+}
+
+.between-table{
+  width:100px;
+}
+
+.td_completion{
+  vertical-align: top;
+}
+
+.caption-com{
+  caption-side: top;
+  border-bottom: 1px solid #80b735;
+  background: #fafafa;
+  padding-left:10px;
+  text-align: center;
+}
+
+.table_completion{
+  margin:0 auto;
+}
+
+.Form-tbl__th,
+.Form-tbl__td{
+  color: #2c4318;
+}
+.Form-tbl__th{
+  position: relative;
+  width: calc(100% - 582px);
+  padding: 0 0 0 26px;
+  font-weight: normal;
+  vertical-align: middle;
+  align-items: center;
+  letter-spacing: normal;
+}
+
+.Form-tbl__th_comp{
+  position: relative;
+  width: 40%;
+  padding: 0 0 0 26px;
+  font-weight: normal;
+  vertical-align: middle;
+  align-items: center;
+  letter-spacing: normal;
+
+}
+.Form-tbl__td{
+  word-break: break-all;
+  width: 582px;
+  padding: 5px 24px;
+  border-left: 1px solid #80b735;
+  background: #fff;
+}
+
+.Form-tbl__td_completion{
+  word-break: break-all;
+  width: 400px;
+  padding: 13px 24px;
+  border-left: 1px solid #80b735;
+  background: #fff;
+}
+
+/* レイアウト用
+--------------------------------------------------*/
+.Date-box{
+  display: flex;
+  max-width: 532px;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Date-box--w02{
+  margin:5px 0;
+}
+
+.Date-box--w03{
+  display: flex;
+  align-items: center;
+}
+
+.Date-box--w03__txt{
+  display: inline-block;
+  margin: 0 9px 0 8px;
+}
+
+/* フォームパーツ
+--------------------------------------------------*/
+.Input{
+  width: 100%;
+  margin: 5px 0;
+  padding: 0 18px;
+  border: 1px solid #3f5d26;
+  border-radius: 4px;
+  height:35px;
+}
+.Input--w01{
+  width: 200px;
+}
+.Input--w02{
+  width: 126px;
+}
+.Input--w03{
+  width: 261px;
+}
+
+/* ラジオボタン */
+.Input-radio{
+  position: absolute;
+  left: -9999px;
+}
+.Label-radio{
+  display: block;
+  position: relative;
+  padding: 3px 10px 0 55px;
+  cursor: pointer;
+  font-size: 1.5rem;
+  letter-spacing: normal;
+  background: #fff;
+  height:35px;
+}
+.Label-radio::before,
+.Label-radio::after{
+  display: block;
+  position: absolute;
+  top: 50%;
+  border: 1px solid #3f5d26;
+  border-radius: 50%;
+  content: '';
+}
+.Label-radio::before{
+  left: 16px;
+  width: 24px;
+  height: 24px;
+  margin-top: -12px;
+}
+.Label-radio::after{
+  display: none;
+}
+.Input-radio:checked + .Label-radio{
+  padding: 2px 13px 0 54px;
+  border: 2px solid #3f5d26;
+  background: #f4faeb;
+}
+.Input-radio:checked + .Label-radio::before{
+  background: #3f5d26;
+}
+.Input-radio:checked + .Label-radio::after{
+  display: block;
+  left: 22px;
+  width: 12px;
+  height: 12px;
+  margin-top: -6px;
+  background: #fff;
+}
+.Input-radio:focus + .Label-radio{
+  outline: 1px dotted #212121;
+  outline: 5px auto -webkit-focus-ring-color;
+}
+/* 送信
+--------------------------------------------------*/
+.Control-area{
+  position: relative;
+  margin: 15px 0 66px;
+  text-align: center;
+}
+.Control-area__btn{
+  position: relative;
+  width: 300px;
+  /* min-height: 121px; */
+  padding: 15px 0 15px;
+  border: none;
+  border-radius: 8px;
+  background: green;
+  box-shadow: 0 0 0 1px rgba(0,16,14,0.03), 0 8px 16px -4px rgba(0,16,14,0.31);
+  color: #fff;
+  font-size: 2.4rem;
+  line-height: 1;
+  transition: all .3s ease;
+}
+
+.btn-link-return{
+  font-size: 2.1rem;
+  margin: 0px 10px;
+  padding:0rem .75rem;
+}
+.Control-area__btn:hover{
+  opacity: .8;
+}
+/* 必須アイコン
+--------------------------------------------------*/
+.Ico-must{
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+  border: 2px solid #f00;
+  border-radius: 4px;
+  background: #fff;
+  color: #f00;
+  font-size: 1.2rem;
+  text-align: center;
+  line-height: 18px;
+}
+
+/* レイアウト用
+--------------------------------------------------*/
+/* 項目名 */
+.Form-name{
+  display: flex;
+  padding: 10px 15px 5px 0;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* 名前入力 */
+.Date-name{
+  display: flex;
+  width: 254px;
+  align-items: center;
+  justify-content: space-between;
+}
+/* フォームパーツ
+--------------------------------------------------*/
+/* セレクトボックス */
+.Select-wrap{
+  position: relative;
+  margin: 4px 0;
+}
+.Select-wrap::before,
+.Select-wrap::after{
+  position: absolute;
+  left: 100%;
+  pointer-events: none;
+  content: "";
+}
+.Select-wrap::before{
+  width: 44px;
+  height: 100%;
+  margin-left: -44px;
+  border-radius: 0 4px 4px 0;
+  background: #3f5d26;
+}
+.Select-wrap::after{
+  top: 50%;
+  width: 0;
+  height: 0;
+  margin: -5px 0 0 -32px;
+  border-width: 12px 10px 0 10px;
+  border-color: #fff transparent transparent transparent;
+  border-style: solid;
+}
+
+.Custom-select{
+  width: 210px;
+  height: 35px;
+  padding: 0 42px 0 18px;
+  border-radius: 4px;
+  border: 1px solid #3f5d26;
+}
+.Custom-select::-ms-expand{
+  display: none;
+}
