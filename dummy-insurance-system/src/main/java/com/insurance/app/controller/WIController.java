@@ -67,7 +67,8 @@ public class WIController {
                 wlConfimation.setEntry_age(Period.between(birth_date, start_date).getYears());
 
                 //掛金の編集
-                wlConfimation.setPremium(premiumCalculation(wlInput));
+                //wlConfimation.setPremium(premiumCalculation(wlInput));
+                wlConfimation.setPremium(1000);
 
                 model.addAttribute("wlConfimation", wlConfimation);
 
