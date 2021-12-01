@@ -136,7 +136,6 @@ form: フォーム共通
   margin: 0 auto;
 }
 .Form-wrap_completion{
-  width: 80%;
   margin: 0 auto;
 }
 /* テーブルレイアウト
@@ -202,7 +201,7 @@ form: フォーム共通
 
 .Form-tbl__th_comp{
   position: relative;
-  width: 40%;
+  width: 220px;
   padding: 0 0 0 26px;
   font-weight: normal;
   vertical-align: middle;
@@ -220,7 +219,7 @@ form: フォーム共通
 
 .Form-tbl__td_completion{
   word-break: break-all;
-  width: 400px;
+  width: 300px;
   padding: 13px 24px;
   border-left: 1px solid #80b735;
   background: #fff;

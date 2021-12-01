@@ -44,15 +44,14 @@
 
                 <td class="Form-tbl__td">
                   <div class="Date-box">
-                    <label class="Date-name">姓<input maxlength="14"
-                      name="insured_person_name_kanji_surname" type="text"
-                      id="name_kanji_surname" placeholder="打見" class="Input Input--w01"
-                      th:value="*{insured_person_name_kanji_surname}"></label>
 
-                    <label class="Date-name">名<input maxlength="9"
-                      name="insured_person_name_kanji_name" type="text"
+                    <label class="Date-name">姓<input maxlength="14" type="text"
+                      id="name_kanji_surname" placeholder="打見" class="Input Input--w01"
+                      th:field="*{insured_person_name_kanji_surname}"></label>
+
+                    <label class="Date-name">名<input maxlength="9" type="text"
                       id="name_kanji_name" placeholder="保険" class="Input Input--w01"
-                      th:value="*{insured_person_name_kanji_name}"></label>
+                      th:field="*{insured_person_name_kanji_name}"></label>
                     <div class="text-danger" th:if="${#fields.hasErrors('insured_person_name_kanji_surname')}"
                          th:errors="*{insured_person_name_kanji_surname}"></div>
                   </div>
@@ -66,15 +65,13 @@
 
                 <td class="Form-tbl__td">
                   <div class="Date-box">
-                    <label class="Date-name">セイ<input maxlength="30"
-                      name="insured_person_name_kana_surname" type="text"
+                    <label class="Date-name">セイ<input maxlength="30" type="text"
                       id="name_kana_surname" placeholder="ダミー" class="Input Input--w01"
-                      th:value="*{insured_person_name_kana_surname}"></label>
+                      th:field="*{insured_person_name_kana_surname}"></label>
 
-                    <label class="Date-name">メイ<input maxlength="20"
-                      name="insured_person_name_kana_name" type="text"
+                    <label class="Date-name">メイ<input maxlength="20" type="text"
                       id="name_kana_name" placeholder="ホケン" class="Input Input--w01"
-                      th:value="*{insured_person_name_kana_name}"></label>
+                      th:field="*{insured_person_name_kana_name}"></label>
                     <div class="text-danger" th:if="${#fields.hasErrors('insured_person_name_kana_surname')}"
                          th:errors="*{insured_person_name_kana_surname}"></div>
                     <div class="text-danger" th:if="${#fields.hasErrors('insured_person_name_kana_name')}"
@@ -91,9 +88,7 @@
                 <td class="Form-tbl__td">
                   <div class="Date-box">
                     <input id="birth_date" type="text" class="Input Input--w01 datepicker_birth"
-                      placeholder="yyyy/mm/dd"
-                      name="insured_person_birth_date"
-                      th:value="*{insured_person_birth_date}">
+                      placeholder="yyyy/mm/dd" th:field="*{insured_person_birth_date}">
                   </div>
                   <div class="text-danger" th:if="${#fields.hasErrors('insured_person_birth_date')}"
                        th:errors="*{insured_person_birth_date}"></div>
@@ -128,8 +123,7 @@
                 <td class="Form-tbl__td">
                   <div class="Date-box">
                     <input id="start_date"  type="text" class="Input Input--w01 datepicker_start"
-                      placeholder="yyyy/mm/dd" name="start_date"
-                      th:value="*{start_date}">
+                      placeholder="yyyy/mm/dd" th:field="*{start_date}">
                   </div>
                   <div class="text-danger" th:if="${#fields.hasErrors('start_date')}" th:errors="*{start_date}"></div>
                 </td>
@@ -143,8 +137,9 @@
                   <div class="Date-box Date-box--w02">
                     <div class="Date-box--w03">
                       <div id="insurance_money" class="Select-wrap">
-                        <select name="insurance_money" class="Custom-select Custom-select--year">
-                          <option th:each="i : ${#numbers.sequence(200, 1000,100)}" th:value="${i}" th:text="${i}"
+                        <select th:field="*{insurance_money}" class="Custom-select Custom-select--year">
+                          <option th:each="i : ${#numbers.sequence(200, 1000,100)}" th:value="${i}"
+                                   th:text="${#numbers.formatInteger(i, 3, 'COMMA')}"
                                    th:selected="${wlInput.insurance_money==i}"></option>
                         </select>
                       </div>
@@ -162,7 +157,7 @@
                   <div class="Date-box Date-box--w02">
                     <div class="Date-box--w03">
                       <div id="expiration_age" class="Select-wrap">
-                        <select name="payment_expiration_age" class="Custom-select Custom-select--year">
+                        <select th:field="*{payment_expiration_age}" class="Custom-select Custom-select--year">
                           <option label="60歳"  value="60" th:selected="*{payment_expiration_age==60}">60歳</option>
                           <option label="終身"  value="99" th:selected="*{payment_expiration_age==99}">終身</option>
                         </select>
@@ -180,7 +175,7 @@
                   <div class="Date-box Date-box--w02">
                     <div class="Date-box--w03">
                       <div id="payment_method" class="Select-wrap">
-                        <select name="payment_method" class="Custom-select Custom-select--year">
+                        <select th:field="*{payment_method}" class="Custom-select Custom-select--year">
                           <option label="月払"  value="1" th:selected="*{payment_method=='1'}">月払</option>
                           <option label="年払"  value="3" th:selected="*{payment_method=='3'}">年払</option>
                         </select>

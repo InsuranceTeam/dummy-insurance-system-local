@@ -11,6 +11,7 @@ $(function() {
     defaultDate: new Date(), // 処理日を初期設定
     changeYear: true,    // 年を表示
     changeMonth: true,   // 月を選択
-    dateFormat: 'yy/mm/dd'      // yyyy/mm/dd
+    dateFormat: 'yy/mm/dd',      // yyyy/mm/dd
+    yearRange: "-10:+10"
   });
 });

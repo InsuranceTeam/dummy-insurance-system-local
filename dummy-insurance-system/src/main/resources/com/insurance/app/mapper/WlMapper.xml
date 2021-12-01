@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.insurance.app.mapper.WlMapper">
+
+  <!--被保険者情報テーブルを名寄せで取得する -->
+  <select id="nayoseInsuredPersons" resultType="Integer">
+    select insured_person_id from insured_persons
+     where (insured_person_name_kana  = #{insured_person_name_kana}
+       and  insured_person_birth_date = #{insured_person_birth_date}
+       and  insured_person_sex        = #{insured_person_sex})
+  </select>
+
+  <!--被保険者情報テーブルを登録する -->
+  <insert id="insertInsuredPersons" useGeneratedKeys="true" keyProperty="insured_person_id">
+    insert into insured_persons(insured_person_name_kanji,
+                                  insured_person_name_kana,
+                                  insured_person_birth_date,
+                                  insured_person_sex)
+    values                       (#{insured_person_name_kanji},
+                                  #{insured_person_name_kana},
+                                  #{insured_person_birth_date},
+                                  #{insured_person_sex})
+  </insert>
+
+  <!--被保険者情報テーブルを更新する -->
+  <update id="updateInsuredPersons">
+    update insured_persons
+       set insured_person_name_kanji=#{insured_person_name_kanji}
+     where insured_person_id        =#{insured_person_id}
+  </update>
+
+  <!--契約番号（最大値）を取得する-->
+  <select id="getContractId" resultType="Integer">
+    select max(contract_id) from contracts
+     where insured_person_id =#{insured_person_id}
+  </select>
+
+  <!--契約履歴番号（最大値）を取得する
+  <select id="getContractHistoryId" resultType="Integer">
+    select max(contract_history_id) from contracts
+     where (insured_person_id =#{insured_person_id}
+       and  contract_id       =#{contract_id})
+  </select>-->
+
+  <!--契約情報テーブルを登録する -->
+  <insert id="insertContracts">
+    insert into contracts(insured_person_id,
+                          contract_id,
+                          contract_history_id,
+                          contract_start_date,
+                          contract_end_date,
+                          contract_end_reason,
+                          contract_maturity_date,
+                          security_type,
+                          entry_age,
+                          payment_method,
+                          insurance_money,
+                          premium,
+                          premium_payment_term,
+                          contract_term,
+                          payment_expiration_age)
+    values               (#{insured_person_id},
+                          #{contract_id},
+                          #{contract_history_id},
+                          #{contract_start_date},
+                          #{contract_end_date},
+                          #{contract_end_reason},
+                          #{contract_maturity_date},
+                          #{security_type},
+                          #{entry_age},
+                          #{payment_method},
+                          #{insurance_money},
+                          #{premium},
+                          #{premium_payment_term},
+                          #{contract_term},
+                          #{payment_expiration_age})
+  </insert>
+</mapper>

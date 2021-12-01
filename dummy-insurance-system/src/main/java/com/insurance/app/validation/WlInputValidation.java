@@ -3,6 +3,7 @@ package com.insurance.app.validation;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Component;
@@ -39,12 +40,40 @@ public class WlInputValidation implements Validator{
                          wlInput.getInsured_person_name_kana_name(),
                          errors);
 
-        //生年月日と加入日の比較チェック、加入時年齢チェック
+        //生年月日の暦日チェック
         String birth_date_str = wlInput.getInsured_person_birth_date();
+        boolean birth_date_check_flg = true;
+
+        if(!birth_date_str.isEmpty()) {
+            if(calendarDayCheck(birth_date_str)) {
+            }else {
+                errors.rejectValue("insured_person_birth_date", "birth_date_calendar_err",
+                        "暦日を入力してください");
+                birth_date_check_flg = false;
+            }
+        }else {
+            birth_date_check_flg = false;
+        }
+
+        //加入日の暦日チェック
         String start_date_str = wlInput.getStart_date();
-        if(!birth_date_str.isEmpty() && !start_date_str.isEmpty()){
-            validateDate(LocalDate.parse(birth_date_str, DateTimeFormatter.ofPattern("yyyy/MM/dd")),
-                         LocalDate.parse(start_date_str, DateTimeFormatter.ofPattern("yyyy/MM/dd")),
+        boolean start_date_check_flg = true;
+
+        if(!start_date_str.isEmpty()) {
+            if(calendarDayCheck(start_date_str)) {
+            }else {
+                errors.rejectValue("start_date", "start_date_calendar_err",
+                        "暦日を入力してください");
+                start_date_check_flg = false;
+            }
+        }else {
+            start_date_check_flg = false;
+        }
+
+        //生年月日と加入日の比較チェック、加入時年齢チェック
+        if(birth_date_check_flg && start_date_check_flg){
+            validateDate(LocalDate.parse(birth_date_str, DateTimeFormatter.ofPattern("uuuu/MM/dd")),
+                         LocalDate.parse(start_date_str, DateTimeFormatter.ofPattern("uuuu/MM/dd")),
                          wlInput.getPayment_expiration_age(),
                          errors);
         }
@@ -66,6 +95,13 @@ public class WlInputValidation implements Validator{
             errors.rejectValue("insured_person_name_kanji_surname", "name_kanji",
                     "全角で入力してください");
         };
+
+        //被保険者氏名（漢字）の空白文字チェック
+        if(blankCheck(kanji_surname) && blankCheck(kanji_name)) {
+        }else {
+            errors.rejectValue("insured_person_name_kanji_surname", "name_kanji_blank",
+                    "空白文字（全角、半角）は入力しないでください");
+        };
     }
 
     //被保険者氏名（カナ）チェック
@@ -75,6 +111,13 @@ public class WlInputValidation implements Validator{
         }else {
             errors.rejectValue("insured_person_name_kana_surname", "name_kana",
                     "全角で入力してください");
+        };
+
+        //被保険者氏名（カナ）の空白文字チェック
+        if(blankCheck(kana_surname) && blankCheck(kana_name)) {
+        }else {
+            errors.rejectValue("insured_person_name_kana_surname", "name_kana_blank",
+                    "空白文字（全角、半角）は入力しないでください");
         };
     }
 
@@ -102,5 +145,27 @@ public class WlInputValidation implements Validator{
                 }
             }
         }
+    }
+
+    //空白入力チェック
+    public Boolean blankCheck(String str) {
+        String str_trim = str.replaceAll("[\\h]+", "");
+        if(str.equals(str_trim)) {
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    //暦日チェック
+    public Boolean calendarDayCheck(String date_str) {
+        try {
+            DateTimeFormatter.ofPattern("uuuu/MM/dd").withResolverStyle(ResolverStyle.STRICT).
+            parse(date_str, LocalDate::from);
+            return true;
+
+        } catch (Exception e) {
+            return false;}
+
     }
 }
