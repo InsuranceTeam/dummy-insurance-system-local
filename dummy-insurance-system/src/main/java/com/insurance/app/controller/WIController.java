@@ -106,30 +106,38 @@ public class WIController {
                 //ブラウザのリロードによる誤更新を防ぐため、フラグにtrueを設定する
                 reloadFlg = true;
 
-                //被保険者情報の登録／更新を行なう
+                //被保険者情報の編集を行なう
                 WlInsuredPersons wlInsuredPersons = new WlInsuredPersons();
-                model.addAttribute("iuComment", entryInsuredPersons(wlConfirmation, wlInsuredPersons));
+                editInsuredPersons(wlConfirmation, wlInsuredPersons);
 
-
-                //契約情報の登録を行なう
+                //契約情報の編集を行なう
                 WlContracts wlContracts = new WlContracts();
-                entryContracts(wlConfirmation, wlInsuredPersons, wlContracts);
+                editContracts(wlConfirmation, wlInsuredPersons, wlContracts);
+
+                //被保険者情報の登録／更新 及び 契約情報の登録を行なう
+                String iuComment = wlService.entryContracts(wlInsuredPersons, wlContracts);
 
 
-                //完了画面に表示する内容を編集（完了画面には被保険者氏名（カナ）を全角で表示する）
+                //完了画面に表示する値を編集する（被保険者氏名（カナ）は全角、日付は"yyyy/mm/dd"形式）
                 wlInsuredPersons.setInsured_person_name_kana(
                           wlConfirmation.getInsured_person_name_kana_surname() + "　"
                         + wlConfirmation.getInsured_person_name_kana_name());
+                wlInsuredPersons.setInsured_person_birth_date(wlConfirmation.getInsured_person_birth_date());
+                wlContracts.setContract_start_date(wlConfirmation.getStart_date());
+                wlContracts.setContract_end_date("0000/00/00");
+                wlContracts.setContract_maturity_date("9999/12/31");
 
                 WlCompletion wlCompletion = new WlCompletion();
                 wlCompletion.setWlInsuredPersons(wlInsuredPersons);
                 wlCompletion.setWlContracts(wlContracts);
                 model.addAttribute("wlCompletion", wlCompletion);
 
+                //被保険者情報テーブルが登録／更新のどちらであるかを画面表示する
+                model.addAttribute("iuComment", iuComment);
+
                 return "wl_completion";
 
             }catch(Exception e) {
-                e.printStackTrace();
                 model.addAttribute("massage", e.getMessage());
                 return "cm_error";
             }
@@ -172,13 +180,17 @@ public class WIController {
     }
 
     //被保険者情報の登録／更新
-    public String entryInsuredPersons(WlConfirmation   wlConfirmation,
+    public void editInsuredPersons(WlConfirmation   wlConfirmation,
                                     WlInsuredPersons wlInsuredPersons) throws Exception {
         try {
 
             //被保険者氏名（漢字）
-            wlInsuredPersons.setInsured_person_name_kanji(wlConfirmation.getInsured_person_name_kanji_surname() + "　"
-                                                          + wlConfirmation.getInsured_person_name_kanji_name());
+            if(wlConfirmation.getInsured_person_name_kanji_surname() != "") {
+                wlInsuredPersons.setInsured_person_name_kanji(wlConfirmation.getInsured_person_name_kanji_surname() + "　"
+                                                              + wlConfirmation.getInsured_person_name_kanji_name());
+            }else {
+                wlInsuredPersons.setInsured_person_name_kanji("");
+            }
 
             //被保険者氏名（カナ）⇒ 被保険者氏名(ｶﾅ)
             String name_kana_em = wlConfirmation.getInsured_person_name_kana_surname() + "　"
@@ -188,61 +200,37 @@ public class WIController {
             wlInsuredPersons.setInsured_person_name_kana(name_kana);
 
             //生年月日
-            LocalDate birth_date = stringToDate(wlConfirmation.getInsured_person_birth_date());
+            String birth_date = wlConfirmation.getInsured_person_birth_date().replace("/", "");
             wlInsuredPersons.setInsured_person_birth_date(birth_date);
 
             //性別
             String sex = wlConfirmation.getInsured_person_sex();
             wlInsuredPersons.setInsured_person_sex(sex);
 
-            //名寄せにより被保険者番号を取得する
-            int insured_person_id = wlService.nayoseInsuredPersons(name_kana, birth_date, sex);
-
-            //名寄せによる被保険者番号の取得結果に応じて、被保険者情報テーブルの登録・更新を行なう
-            if(insured_person_id == 0) {
-                //新規の被保険者情報テーブルを登録する
-                wlService.insertInsuredPersons(wlInsuredPersons);
-                return "※登録";
-            }else {
-                //既存の被保険者テーブルを更新する
-                wlInsuredPersons.setInsured_person_id(insured_person_id);
-                wlService.updateInsuredPersons(wlInsuredPersons);
-                return "※更新";
-            }
         }catch(Exception e) {
             throw new Exception(e);
         }
     }
 
     //契約情報の登録
-    public void entryContracts(WlConfirmation   wlConfirmation,
+    public void editContracts(WlConfirmation   wlConfirmation,
                                WlInsuredPersons wlInsuredPersons,
                                WlContracts      wlContracts) throws Exception {
         try {
 
-            //被保険者番号
-            wlContracts.setInsured_person_id(wlInsuredPersons.getInsured_person_id());
-
-            //契約番号（登録済みの契約情報と重複しない番号を設定する）
-            int contract_id = wlService.getContractId(wlInsuredPersons.getInsured_person_id());
-            wlContracts.setContract_id(contract_id);
-
             //契約履歴番号
             wlContracts.setContract_history_id(10000);
-            //int contract_history_id = wlService.getContractHistoryId(insured_person_id, contract_id);
-            //wlContracts.setContract_history_id(contract_history_id);
-            //System.out.println("契約履歴番号：" + wlContracts.getContract_history_id());
 
             //契約開始日
-            LocalDate start_date     = stringToDate(wlConfirmation.getStart_date());
+            String start_date = wlConfirmation.getStart_date().replace("/", "");
             wlContracts.setContract_start_date(start_date);
 
             //契約終了日
-            wlContracts.setContract_end_date(stringToDate("9999/12/31"));
+            wlContracts.setContract_end_date("00000000");
             //契約終了事由
             wlContracts.setContract_end_reason("");
             //契約満期日
-            wlContracts.setContract_maturity_date(stringToDate("9999/12/31"));
+            wlContracts.setContract_maturity_date("99991231");
             //保障種類
             wlContracts.setSecurity_type("WL");
 
@@ -265,9 +253,6 @@ public class WIController {
             wlContracts.setContract_term(99);
             //払込満了年齢
             wlContracts.setPayment_expiration_age(wlConfirmation.getPayment_expiration_age());
-
-            //新規の契約情報テーブルを登録する
-            wlService.insertContracts(wlContracts);
 
         }catch(Exception e) {
             throw new Exception(e);

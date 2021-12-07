@@ -1,6 +1,5 @@
 package com.insurance.app.domain;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class WlInsuredPersons {
@@ -8,7 +7,7 @@ public class WlInsuredPersons {
     private int             insured_person_id;          //被保険者番号
     private String          insured_person_name_kanji;  //被保険者氏名（漢字）
     private String          insured_person_name_kana;   //被保険者氏名（カナ）
-    private LocalDate       insured_person_birth_date;  //生年月日
+    private String          insured_person_birth_date;  //生年月日
     private String          insured_person_sex;         //性別
     private LocalDateTime   create_at;                  //作成日
     private LocalDateTime   update_at;                  //更新日
@@ -44,12 +43,12 @@ public class WlInsuredPersons {
     }
 
     //生年月日_getter
-    public LocalDate getInsured_person_birth_date() {
+    public String getInsured_person_birth_date() {
         return insured_person_birth_date;
     }
 
     //生年月日_setter
-    public void setInsured_person_birth_date(LocalDate insured_person_birth_date) {
+    public void setInsured_person_birth_date(String insured_person_birth_date) {
         this.insured_person_birth_date = insured_person_birth_date;
     }
 

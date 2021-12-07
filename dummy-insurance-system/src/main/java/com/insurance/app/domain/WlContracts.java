@@ -1,26 +1,26 @@
 package com.insurance.app.domain;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class WlContracts {
 
-    private int      insured_person_id;      //被保険者番号
-    private int      contract_id;            //契約番号
-    private int      contract_history_id;    //契約履歴番号
-    private LocalDate contract_start_date;    //契約開始日
-    private LocalDate contract_end_date;      //契約終了日
-    private String   contract_end_reason;    //契約終了事由
-    private LocalDate contract_maturity_date; //契約満期日
-    private String   security_type;          //保障種類
-    private int      entry_age;              //加入年齢
-    private String   payment_method;         //払込方法
-    private int      insurance_money;        //保険金
-    private int      premium;                //掛金
-    private int      premium_payment_term;   //掛金払込期間
-    private int      contract_term;          //契約期間
-    private int      payment_expiration_age; //払込満了年齢
-    private LocalDate create_at;              //作成日
-    private LocalDate update_at;              //更新日
+    private int           insured_person_id;      //被保険者番号
+    private int           contract_id;            //契約番号
+    private int           contract_history_id;    //契約履歴番号
+    private String        contract_start_date;    //契約開始日
+    private String        contract_end_date;      //契約終了日
+    private String        contract_end_reason;    //契約終了事由
+    private String        contract_maturity_date; //契約満期日
+    private String        security_type;          //保障種類
+    private int           entry_age;              //加入年齢
+    private String        payment_method;         //払込方法
+    private int           insurance_money;        //保険金
+    private int           premium;                //掛金
+    private int           premium_payment_term;   //掛金払込期間
+    private int           contract_term;          //契約期間
+    private int           payment_expiration_age; //払込満了年齢
+    private LocalDateTime create_at;              //作成日
+    private LocalDateTime update_at;              //更新日
 
     //被保険者番号_getter
     public int getInsured_person_id() {
@@ -53,22 +53,22 @@ public class WlContracts {
     }
 
     //契約開始日_getter
-    public LocalDate getContract_start_date() {
+    public String getContract_start_date() {
         return contract_start_date;
     }
 
     //契約開始日_setter
-    public void setContract_start_date(LocalDate contract_start_date) {
+    public void setContract_start_date(String contract_start_date) {
         this.contract_start_date = contract_start_date;
     }
 
     //契約終了日_getter
-    public LocalDate getContract_end_date() {
+    public String getContract_end_date() {
         return contract_end_date;
     }
 
     //契約終了日_setter
-    public void setContract_end_date(LocalDate contract_end_date) {
+    public void setContract_end_date(String contract_end_date) {
         this.contract_end_date = contract_end_date;
     }
 
@@ -83,12 +83,12 @@ public class WlContracts {
     }
 
     //契約満期日_getter
-    public LocalDate getContract_maturity_date() {
+    public String getContract_maturity_date() {
         return contract_maturity_date;
     }
 
     //契約満期日_setter
-    public void setContract_maturity_date(LocalDate contract_maturity_date) {
+    public void setContract_maturity_date(String contract_maturity_date) {
         this.contract_maturity_date = contract_maturity_date;
     }
 
@@ -173,22 +173,22 @@ public class WlContracts {
     }
 
     //作成日_getter
-    public LocalDate getCreate_at() {
+    public LocalDateTime getCreate_at() {
         return create_at;
     }
 
     //作成日_setter
-    public void setCreate_at(LocalDate create_at) {
+    public void setCreate_at(LocalDateTime create_at) {
         this.create_at = create_at;
     }
 
     //更新日_getter
-    public LocalDate getUpdate_at() {
+    public LocalDateTime getUpdate_at() {
         return update_at;
     }
 
     //更新日_setter
-    public void setUpdate_at(LocalDate update_at) {
+    public void setUpdate_at(LocalDateTime update_at) {
         this.update_at = update_at;
     }
 }

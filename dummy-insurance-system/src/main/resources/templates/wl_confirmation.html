@@ -53,8 +53,8 @@
                 <th class="Form-tbl__th"><div class="Form-name">被保険者氏名（漢字）</div></th>
                 <td id="name_kanji_surname" class="Form-tbl__td">
 
-                  <div th:text="|*{insured_person_name_kanji_surname} 　
-                                      *{insured_person_name_kanji_name}|">
+                  <div th:if="*{insured_person_name_kanji_surname!=''}">
+                    <div th:text="|*{insured_person_name_kanji_surname}　*{insured_person_name_kanji_name}|"></div>
                   </div>
                   <input type="hidden" th:field="*{insured_person_name_kanji_surname}">
                   <input type="hidden" th:field="*{insured_person_name_kanji_name}">
@@ -65,8 +65,7 @@
                 <th class="Form-tbl__th"><div class="Form-name">被保険者氏名（カナ）</div></th>
                 <td id="name_kana" class="Form-tbl__td">
 
-                  <div th:text="|*{insured_person_name_kana_surname}
-                                       　*{insured_person_name_kana_name}|">
+                  <div th:text="|*{insured_person_name_kana_surname}　*{insured_person_name_kana_name}|">
                   </div>
                   <input type="hidden" th:field="*{insured_person_name_kana_surname}">
                   <input type="hidden" th:field="*{insured_person_name_kana_name}">

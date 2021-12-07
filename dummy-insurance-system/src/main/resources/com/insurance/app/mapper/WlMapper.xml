@@ -35,13 +35,6 @@
      where insured_person_id =#{insured_person_id}
   </select>
 
-  <!--契約履歴番号（最大値）を取得する
-  <select id="getContractHistoryId" resultType="Integer">
-    select max(contract_history_id) from contracts
-     where (insured_person_id =#{insured_person_id}
-       and  contract_id       =#{contract_id})
-  </select>-->
-
   <!--契約情報テーブルを登録する -->
   <insert id="insertContracts">
     insert into contracts(insured_person_id,

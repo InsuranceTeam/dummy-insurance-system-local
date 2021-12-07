@@ -64,7 +64,7 @@
                     <th class="Form-tbl__th_comp"><div class="Form-name">生年月日</div></th>
 
                     <td class="Form-tbl__td_completion">
-                      <div th:text="*{#temporals.format(wlInsuredPersons.insured_person_birth_date,'yyyy/MM/dd')}">
+                      <div th:text="*{wlInsuredPersons.insured_person_birth_date}">
                       </div>
                     </td>
                   </tr>
@@ -111,14 +111,14 @@
                   <tr class="Form-tbl__tr">
                     <th class="Form-tbl__th_comp"><div class="Form-name">契約開始日</div></th>
                     <td class="Form-tbl__td_completion">
-                      <div th:text="*{#temporals.format(wlContracts.contract_start_date,'yyyy/MM/dd')}"></div>
+                      <div th:text="*{wlContracts.contract_start_date}"></div>
                     </td>
                   </tr>
 <!--
                   <tr class="Form-tbl__tr">
                       <th class="Form-tbl__th_comp"><div class="Form-name">契約終了日</div></th>
                       <td class="Form-tbl__td_completion">
-                        <div th:text="*{#temporals.format(wlContracts.contract_end_date,'yyyy/MM/dd')}"></div>
+                        <div th:text="*{wlContracts.contract_end_date}"></div>
                       </td>
                   </tr>
                   <tr class="Form-tbl__tr">
@@ -128,7 +128,7 @@
                   <tr class="Form-tbl__tr">
                       <th class="Form-tbl__th_comp"><div class="Form-name">契約満期日</div></th>
                       <td class="Form-tbl__td_completion">
-                        <div th:text="*{#temporals.format(wlContracts.contract_maturity_date,'yyyy/MM/dd')}"></div>
+                        <div th:text="*{wlContracts.contract_maturity_date}"></div>
                       </td>
                   </tr>
                   <tr class="Form-tbl__tr">

@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
-import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -14,12 +13,6 @@ import com.insurance.app.domain.WlInput;
 
 @Component
 public class WlInputValidation implements Validator{
-
-    /**
-     * 全角チェックを行うための正規表現
-     * (コンパイルに時間がかかるためあらかじめ定数化しておく)
-     */
-    private static Pattern pattern = Pattern.compile("^[^!-~｡-ﾟ]*$");
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -89,13 +82,6 @@ public class WlInputValidation implements Validator{
                     "姓・名は両方入力　もしくは　両方未入力としてください");
         }
 
-        //被保険者氏名（漢字）の全角チェック
-        if(pattern.matcher(kanji_surname).find() && pattern.matcher(kanji_name).find()) {
-        }else {
-            errors.rejectValue("insured_person_name_kanji_surname", "name_kanji",
-                    "全角で入力してください");
-        };
-
         //被保険者氏名（漢字）の空白文字チェック
         if(blankCheck(kanji_surname) && blankCheck(kanji_name)) {
         }else {
@@ -106,12 +92,6 @@ public class WlInputValidation implements Validator{
 
     //被保険者氏名（カナ）チェック
     public void validateKanaName(String kana_surname, String kana_name, Errors errors) {
-        //被保険者氏名（カナ）の全角チェック
-        if(pattern.matcher(kana_surname).find() && pattern.matcher(kana_name).find()) {
-        }else {
-            errors.rejectValue("insured_person_name_kana_surname", "name_kana",
-                    "全角で入力してください");
-        };
 
         //被保険者氏名（カナ）の空白文字チェック
         if(blankCheck(kana_surname) && blankCheck(kana_name)) {
