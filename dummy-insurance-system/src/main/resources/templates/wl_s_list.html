@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+  <link rel="stylesheet" href="/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/css/wl_common.css" />
+  <title>終身生命　契約一覧画面</title>
+</head>
+<body>
+    <header class="Header">
+      <div class="Header__inner">
+        <a href="/cm/task">ダミー保険事務処理システム</a>
+        <form th:method="get" th:action="@{/wl/s/search}" th:object="${wlSSearch}">
+          <input type="hidden" th:field="*{insured_person_id_str}">
+          <button class="btn btn-link btn-link-return">戻る</button>
+        </form>
+      </div>
+    </header>
+    <div class="container">
+        <div class="title">終身生命　契約一覧画面</div>
+    </div>
+
+    <div class="Form-wrap Form-wrap-list">
+      <div class="Box-flame">
+        <table class="Form-tbl">
+          <thead>
+            <tr class="Form-list__tr">
+              <th class="Form-list__th">被保険者番号</th>
+              <th class="Form-list__th">被保険者氏名（漢字）</th>
+              <th class="Form-list__th">被保険者氏名(ｶﾅ)</th>
+              <th class="Form-list__th">生年月日</th>
+              <th class="Form-list__th">性別</th>
+              <th class="Form-list__th">契約番号</th>
+              <th class="Form-list__th">契約開始日</th>
+              <th>契約終了日</th>
+          </thead>
+          <tbody>
+            <tr class="Form-tbl__tr" th:each="wlSList:${wlSLists}" th:object="${wlSList}">
+
+              <!-- 被保険者番号 -->
+              <td class="Form-list__td">
+                <form th:method="get"
+                  th:action="@{/wl/s/contract/{contract_key}(contract_key=|*{insured_person_id}&*{contract_id})}">
+                  <button class="Form-list__button" th:text="*{insured_person_id}"></button>
+                </form>
+              </td>
+
+              <!-- 被保険者氏名（漢字） -->
+              <td class="Form-list__td_kj">
+                <form th:method="get"
+                  th:action="@{/wl/s/contract/{contract_key}(contract_key=|*{insured_person_id}&*{contract_id})}">
+                  <button class="Form-list__button" th:text="*{insured_person_name_kanji}"></button>
+                </form>
+              </td>
+
+              <!-- 被保険者氏名(ｶﾅ) -->
+              <td class="Form-list__td_kn">
+                <form th:method="get"
+                  th:action="@{/wl/s/contract/{contract_key}(contract_key=|*{insured_person_id}&*{contract_id})}">
+                  <button class="Form-list__button" th:text="*{insured_person_name_kana}"></button>
+                </form>
+              </td>
+
+              <!-- 生年月日 -->
+              <td class="Form-list__td">
+                <form th:method="get"
+                  th:action="@{/wl/s/contract/{contract_key}(contract_key=|*{insured_person_id}&*{contract_id})}">
+                  <button class="Form-list__button"
+                   th:text=  "*{#strings.substring(insured_person_birth_date,0,4)} + '/'
+                            + *{#strings.substring(insured_person_birth_date,4,6)} + '/'
+                            + *{#strings.substring(insured_person_birth_date,6,8)}">
+                  </button>
+                </form>
+              </td>
+
+              <!-- 性別 -->
+              <td class="Form-list__td">
+                <form th:method="get"
+                  th:action="@{/wl/s/contract/{contract_key}(contract_key=|*{insured_person_id}&*{contract_id})}">
+                  <div th:if="*{insured_person_sex} == '1'">
+                    <button class="Form-list__button" th:text="男"></button>
+                  </div>
+                  <div th:if="*{insured_person_sex} == '2'">
+                    <button class="Form-list__button" th:text="女"></button>
+                  </div>
+                </form>
+              </td>
+
+              <!-- 契約番号 -->
+              <td class="Form-list__td">
+                <form th:method="get"
+                  th:action="@{/wl/s/contract/{contract_key}(contract_key=|*{insured_person_id}&*{contract_id})}">
+                  <button class="Form-list__button" th:text="*{contract_id}"></button>
+                </form>
+              </td>
+
+              <!-- 契約開始日 -->
+              <td class="Form-list__td">
+                <form th:method="get"
+                  th:action="@{/wl/s/contract/{contract_key}(contract_key=|*{insured_person_id}&*{contract_id})}">
+                  <button class="Form-list__button"
+                   th:text=  "*{#strings.substring(contract_start_date,0,4)} + '/'
+                            + *{#strings.substring(contract_start_date,4,6)} + '/'
+                            + *{#strings.substring(contract_start_date,6,8)}">
+                  </button>
+                </form>
+              </td>
+
+              <!-- 契約終了日 -->
+              <td class="Form-list__td_last">
+                <form th:method="get"
+                  th:action="@{/wl/s/contract/{contract_key}(contract_key=|*{insured_person_id}&*{contract_id})}">
+
+                  <div th:if="*{contract_end_date} != '00000000'">
+                    <button class="Form-list__button"
+                     th:text=  "*{#strings.substring(contract_end_date,0,4)} + '/'
+                              + *{#strings.substring(contract_end_date,4,6)} + '/'
+                              + *{#strings.substring(contract_end_date,6,8)}">
+                    </button>
+                  </div>
+                  <div th:if="*{contract_end_date} == '00000000'">
+                    <button class="Form-list__button" >　　　　　</button>
+                  </div>
+
+
+                </form>
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+</body>
+</html>

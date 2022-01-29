@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class CmTaskController {
     @GetMapping
     public String cm_security(Model model) {
-      return "cm_task";
+        return "cm_task";
     }
 }

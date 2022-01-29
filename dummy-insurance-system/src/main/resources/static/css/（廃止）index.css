@@ -1,0 +1,87 @@
+@charset "utf-8";
+/*--------------------------------------------------------------------
+overwrite : 共通上書き
+----------------------------------------------------------------------*/
+/*
+.Form-wrap .Box-flame{
+  border-color: #80b735;
+  box-shadow: none;
+}
+
+.Form-tbl__td{
+  padding: 5px 24px;
+}
+*/
+/* 必須アイコン
+--------------------------------------------------*/
+.Ico-must{
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+  border: 2px solid #f00;
+  border-radius: 4px;
+  background: #fff;
+  color: #f00;
+  font-size: 1.2rem;
+  text-align: center;
+  line-height: 18px;
+}
+
+/* レイアウト用
+--------------------------------------------------*/
+/* 項目名 */
+.Form-name{
+  display: flex;
+  padding: 10px 15px 5px 0;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* 名前入力 */
+.Date-name{
+  display: flex;
+  width: 254px;
+  align-items: center;
+  justify-content: space-between;
+}
+/* フォームパーツ
+--------------------------------------------------*/
+/* セレクトボックス */
+.Select-wrap{
+  position: relative;
+  margin: 4px 0;
+}
+.Select-wrap::before,
+.Select-wrap::after{
+  position: absolute;
+  left: 100%;
+  pointer-events: none;
+  content: "";
+}
+.Select-wrap::before{
+  width: 44px;
+  height: 100%;
+  margin-left: -44px;
+  border-radius: 0 4px 4px 0;
+  background: #3f5d26;
+}
+.Select-wrap::after{
+  top: 50%;
+  width: 0;
+  height: 0;
+  margin: -5px 0 0 -32px;
+  border-width: 12px 10px 0 10px;
+  border-color: #fff transparent transparent transparent;
+  border-style: solid;
+}
+
+.Custom-select{
+  width: 210px;
+  height: 35px;
+  padding: 0 42px 0 18px;
+  border-radius: 4px;
+  border: 1px solid #3f5d26;
+}
+.Custom-select::-ms-expand{
+  display: none;
+}

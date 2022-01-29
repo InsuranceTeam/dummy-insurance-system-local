@@ -6,11 +6,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/cm/security")
+@RequestMapping("/cm")
 public class CmSecurityTypeController {
 
-  @GetMapping
-  public String cm_security(Model model) {
-    return "cm_security";
-  }
+    //加入画面へ遷移するための保障選択画面
+    @GetMapping("/security")
+    public String cm_security(Model model) {
+        model.addAttribute("task_name", "加入");
+        model.addAttribute("task_link", "input");
+        return "cm_security";
+    }
+
+    //契約照会画面へ遷移するための保障選択画面
+    @GetMapping("s/security")
+    public String cm_display(Model model) {
+        model.addAttribute("task_name", "契約照会");
+        model.addAttribute("task_link", "s/search");
+        return "cm_security";
+    }
 }

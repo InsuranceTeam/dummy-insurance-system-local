@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/wl_common.css" />
+
+    <title>終身生命　被保険者検索画面</title>
+  </head>
+
+  <body>
+    <header class="Header">
+      <div class="Header__inner">
+        <a href="/cm/task">ダミー保険事務処理システム</a>
+        <form th:method="get" th:action="@{/cm/s/security}" >
+          <button class="btn btn-link btn-link-return">戻る</button>
+        </form>
+      </div>
+    </header>
+    <div class="container">
+        <div class="title">終身生命　被保険者検索画面</div>
+    </div>
+
+
+    <div class="l-base">
+      <form th:method="post" th:action="@{/wl/s/list}" th:object="${wlSSearch}" class="Form-search">
+
+        <div class="Box-flame Box-flame-search">
+          <table class="Form-tbl">
+            <tr class="Form-tbl__tr">
+              <th class="Form-tbl__th"><div class="Form-name">被保険者番号</div></th>
+              <td class="Form-search__td">
+                <div class="Date-box">
+                  <input type="text" class="Input Input--w01" th:field="*{insured_person_id_str}">
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <table  class="Form-tbl-search-error">
+          <tr class="Form-tbl-search-error__tr">
+            <td colspan="2" class="Form-tbl-search-error__td">
+              <div class="text-danger" th:if="${#fields.hasErrors('insured_person_id_str')}"
+                th:errors="*{insured_person_id_str}"></div>
+            </td>
+          </tr>
+        </table>
+
+        <div id="confirmation_btn" class="Control-area">
+          <button class="Control-area__btn">検索</button>
+        </div>
+      </form>
+    </div>
+
+  </body>
+</html>

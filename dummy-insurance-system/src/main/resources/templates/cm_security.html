@@ -11,16 +11,29 @@
     <header class="Header">
       <div class="Header__inner">
         <a href="/cm/task">ダミー保険事務処理システム</a>
+        <div class=task_name th:text="${task_name}"></div>
+        <form th:method="get" th:action="@{/cm/task}" >
+          <button class="btn btn-link btn-link-return">戻る</button>
+        </form>
       </div>
     </header>
+
     <div class="container">
       <div class="subtitle">保障種類を選択してください</div>
     </div>
 
-    <h5 class="task_link"><a href="/tc/input" class="btn-flat-border">定期医療</a></h5>
-    <h5 class="task_link"><a href="/tl/input" class="btn-flat-border">定期生命</a></h5>
-    <h5 class="task_link"><a href="/wc/input" class="btn-flat-border">終身医療</a></h5>
-    <h5 class="task_link"><a href="/wl/input" class="btn-flat-border">終身生命</a></h5>
+    <h5 class="task_link">
+      <a th:href="@{/tc/{task_link}(task_link=${task_link})}" class="btn-flat-border">定期医療</a>
+    </h5>
+    <h5 class="task_link">
+      <a th:href="@{/tl/{task_link}(task_link=${task_link})}" class="btn-flat-border">定期生命</a>
+    </h5>
+    <h5 class="task_link">
+      <a th:href="@{/wc/{task_link}(task_link=${task_link})}" class="btn-flat-border">終身医療</a>
+    </h5>
+    <h5 class="task_link">
+      <a th:href="@{/wl/{task_link}(task_link=${task_link})}" class="btn-flat-border">終身生命</a>
+    </h5>
 
   </body>
 </html>
