@@ -86,9 +86,9 @@ public class WlSController {
             int insured_person_id = Integer.parseInt(contract_keys[0]);
             int contract_id       = Integer.parseInt(contract_keys[1]);
 
-            //照会用の契約情報を取得する（今後のため、複数履歴を考慮してList形式で取得する）
-            List<WlSContract> wlSContracts = wlSService.getWlSContract(insured_person_id, contract_id);
-            model.addAttribute("wlSContracts", wlSContracts);
+            //照会用の契約情報を取得する（現在は１契約１履歴なので、先頭の履歴のみ取得する）
+            WlSContract wlSContract = wlSService.getWlSContract(insured_person_id, contract_id).get(0);
+            model.addAttribute("wlSContract", wlSContract);
 
             //契約一覧へ戻るための値を設定する
             WlSSearch wlSSearch = new WlSSearch();
