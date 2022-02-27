@@ -8,7 +8,7 @@ $(function(){
     dateFormat: 'yy/mm/dd',      // yyyy/mm/dd
     minDate: new Date($("#contract_start_date").html()), //契約開始日より前日付は指定不可
     maxDate: getEndDate($("#contract_start_date").html(), $("#entry_age").html()), //120歳時点の満期日を終了日としたい
-    yearRange:"-1:+" + String(120 - Number($("#entry_age").html().replace("　歳",""))) //120歳までを入力範囲とする
+    yearRange:"0:+" + String(120 - Number($("#entry_age").html().replace("　歳",""))) //120歳までを入力範囲とする
   });
 
 //global nav
@@ -32,8 +32,32 @@ $(function(){
         $(submenu).slideUp("fast");
   });
 
+  //モーダルウィンドウの表示・表示制御（初期表示）
+  switch($("#overlay_display").val()){
+    case '1':
+      $("body").addClass("no_scroll"); // 背景固定させるクラス付与
+      $('#overlay, .modal-window').show();
+      break;
+    case '2':
+      $("#update_end").dialog({
+        modal:true,
+        title:"完了メッセージ",
+        buttons: {"OK": function() {$(this).dialog("close");}}
+      });
+      break;
+  }
+  if($("#overlay_display").val() == '1'){
+    $("body").addClass("no_scroll"); // 背景固定させるクラス付与
+    $('#overlay, .modal-window').show();
+  }
+
+  //モーダルウィンドウの表示・表示制御（解約・取消ボタン押下時）
   $('.js-open').click(function () {
     $("body").addClass("no_scroll"); // 背景固定させるクラス付与
+    $("#select-cancel").val("1"); //「解約・取消　区分」を「解約」に設定
+    $(".Date-box-show").show();   //解約日の入力項目を表示する
+    $(".text-danger").html('<div class="text-danger"></div>');  //エラーメッセージをクリア
+    $("#datepicker_cancel").val("");  //解約日をクリア
     $('#overlay, .modal-window').fadeIn();
   });
   $('.js-close').click(function () {
@@ -41,17 +65,34 @@ $(function(){
     $('#overlay, .modal-window').fadeOut();
   });
 
+  //解約日の表示・非表示　切替（初期表示）
+  if($("#screen_info").val() == 'input' && $("#select-cancel").val() == '2'){
+    $(".text-danger").html('<div class="text-danger"></div>'); //エラーメッセージをクリア
+    $("#datepicker_cancel").val("");  //解約日をクリア
+    $(".Date-box-show").hide();       //解約日の入力項目を非表示にする
+  };
 
-  //解約・取消の選択時に起動する
+  //解約日の表示・非表示　切替（「解約・取消　区分」が変更されたとき）
   $("#select-cancel").change(function(){
+    $(".text-danger").html('<div class="text-danger"></div>'); //エラーメッセージをクリア
     var select_cancel = $(this).val();
     if(select_cancel == '1'){
-      $("#cancel-date-table").show();
+      $(".Date-box-show").show();       //解約日の入力項目を表示する
     }else{
-      $("#cancel-date-table").hide();
+      $("#datepicker_cancel").val("");  //解約日をクリア
+      $(".Date-box-show").hide();       //解約日の入力項目を非表示にする
     }
   });
 
+/*
+  $("#btn").click(function() {
+    $("#dl").dialog({
+      modal:true,
+      title:"ダイアログのタイトル",
+      buttons: {"OK": function() {$(this).dialog("close");}}
+    });
+  });
+*/
 });
 
 function getEndDate(contract_start_date_str, entry_age_str){

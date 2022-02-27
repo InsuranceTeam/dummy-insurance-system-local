@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.insurance.app.mapper.WlKMapper">
+
+  <!--契約情報テーブルを更新する -->
+  <update id="updateKContracts">
+    update contracts
+       set contract_end_date    = #{contract_end_date},
+           contract_end_reason  = #{contract_end_reason}
+     where insured_person_id    = #{insured_person_id}
+       and contract_id          = #{contract_id}
+       and  contract_history_id = #{contract_history_id}
+  </update>
+
+  <!--支払情報テーブルを登録する -->
+  <insert id="insertKPayment" useGeneratedKeys="true" keyProperty="payment_control_id">
+    insert into payment(payment_amount)
+    values             (#{payment_amount})
+  </insert>
+
+  <!--支払情報インデックステーブルを登録する -->
+  <insert id="insertKPaymentIdx">
+    insert into payment_idx(insured_person_id,
+                            contract_id,
+                            payment_control_id)
+    values                 (#{insured_person_id},
+                            #{contract_id},
+                            #{payment_control_id})
+  </insert>
+</mapper>

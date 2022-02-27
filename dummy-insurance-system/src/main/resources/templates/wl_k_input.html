@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+
+<body>
+
+  <div th:fragment="k_input">
+    <!-- 解約／取消　入力画面（モーダルウィンドウで表示） -->
+    <input type="hidden" id="overlay_display" th:value="${overlay_display}">
+    <div id="overlay" class="overlay"></div>
+    <div class="modal-window" th:object="${wlKInput.wlSContract}">
+
+      <div class="subtitle">解約／取消　入力画面</div>
+
+      <div th:if="*{contract_end_reason} == ''">
+        <button class="js-close button-close" th:text="'×'"></button>
+
+        <form th:method="post" th:action="@{/wl/k/confirmation}" th:object="${wlKInput}">
+
+          <table class="Date-box-cancel">
+            <tbody>
+              <tr class="Cancel-title"><td><div class="Date-box-cancel-title">解約・取消　区分</div></td> </tr>
+              <tr class="Cancel-input">
+                <td>
+                  <div id="expiration_age" class="Select-wrap Select-wrap-cancel">
+                    <select id="select-cancel" class="Custom-select"  th:field="*{select_cancel}" >
+                      <option label="解約"  value="1" >解約</option>
+                      <option label="取消"  value="2" >取消</option>
+                    </select>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+
+            <tbody>
+              <tr class="Cancel-title"><td><div class="Date-box-show Date-box-cancel-title">解約日</div></td> </tr>
+              <tr class="Cancel-input">
+                <td>
+                  <div class="Date-box-show">
+                    <input type="text" id="datepicker_cancel" class="Input_cancel datepicker_cancel"
+                     th:field="*{cancel_date}" placeholder="yyyy/mm/dd">
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+
+            <tbody>
+              <tr class="Cancel-title"><td><div class="Date-box-cancel-title"></div></td> </tr>
+              <tr class="Cancel-input">
+                <td>
+                  <div class="text-danger" th:if="${#fields.hasErrors('cancel_date')}"
+                       th:errors="*{cancel_date}"></div>
+                </td>
+              </tr>
+            </tbody>
+
+            <tbody>
+              <tr><td>
+                <div id="confirmation_btn" class="Control-area-cancel">
+                  <button class="Control-area__btn Control-area__btn-cancel">確認画面へ</button>
+                </div>
+              </td></tr>
+
+          </table>
+
+          <!--照会画面の情報は、解約・取消処理を行なうために必要なため、引き継ぐ -->
+          <input type="hidden" th:field="*{wlSContract.insured_person_id}">
+          <input type="hidden" th:field="*{wlSContract.insured_person_name_kanji}">
+          <input type="hidden" th:field="*{wlSContract.insured_person_name_kana}">
+          <input type="hidden" th:field="*{wlSContract.insured_person_birth_date}">
+          <input type="hidden" th:field="*{wlSContract.insured_person_sex}">
+          <input type="hidden" th:field="*{wlSContract.ip_update_at}">
+          <input type="hidden" th:field="*{wlSContract.contract_id}">
+          <input type="hidden" th:field="*{wlSContract.contract_history_id}">
+          <input type="hidden" th:field="*{wlSContract.contract_start_date}">
+          <input type="hidden" th:field="*{wlSContract.contract_end_date}">
+          <input type="hidden" th:field="*{wlSContract.contract_end_reason}">
+          <input type="hidden" th:field="*{wlSContract.contract_maturity_date}">
+          <input type="hidden" th:field="*{wlSContract.security_type}">
+          <input type="hidden" th:field="*{wlSContract.entry_age}">
+          <input type="hidden" th:field="*{wlSContract.payment_method}">
+          <input type="hidden" th:field="*{wlSContract.insurance_money}">
+          <input type="hidden" th:field="*{wlSContract.premium}">
+          <input type="hidden" th:field="*{wlSContract.premium_payment_term}">
+          <input type="hidden" th:field="*{wlSContract.contract_term}">
+          <input type="hidden" th:field="*{wlSContract.payment_expiration_age}">
+          <input type="hidden" th:field="*{wlSContract.c_update_at}">
+          <input type="hidden" th:field="*{wlSContract.payment_control_id}">
+          <input type="hidden" th:field="*{wlSContract.payment_amount}">
+          <input type="hidden" th:field="*{wlSContract.p_update_at}">
+
+        </form>
+
+      </div>
+
+      <div th:if="*{contract_end_reason} != ''">
+        <div class="text-danger-cancel"  th:text="すでに保全済みのため、解約／取消できません"></div>
+        <button class="js-close button-close" th:text="'×'"></button>
+      </div>
+
+
+    </div>
+
+  </div>
+
+</body>
+</html>

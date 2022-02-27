@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+
+<body class="no_scroll">
+
+  <div th:fragment="k_confirmation">
+    <!-- 解約／取消　確認画面（モーダルウィンドウで表示） -->
+    <input type="hidden" id="overlay_display" th:value="${overlay_display}">
+    <div id="overlay" class="overlay"></div>
+    <div class="modal-window">
+
+
+      <div class="subtitle">解約／取消　確認画面</div>
+      <form th:method="post" th:action="@{/wl/k/input}"  th:object="${wlKConfimation}">
+        <button class="btn btn-link btn-link-k-return">戻る</button>
+
+          <input type="hidden" th:field="*{wlSContract.insured_person_id}">
+          <input type="hidden" th:field="*{wlSContract.insured_person_name_kanji}">
+          <input type="hidden" th:field="*{wlSContract.insured_person_name_kana}">
+          <input type="hidden" th:field="*{wlSContract.insured_person_birth_date}">
+          <input type="hidden" th:field="*{wlSContract.insured_person_sex}">
+          <input type="hidden" th:field="*{wlSContract.ip_update_at}">
+          <input type="hidden" th:field="*{wlSContract.contract_id}">
+          <input type="hidden" th:field="*{wlSContract.contract_history_id}">
+          <input type="hidden" th:field="*{wlSContract.contract_start_date}">
+          <input type="hidden" th:field="*{wlSContract.contract_end_date}">
+          <input type="hidden" th:field="*{wlSContract.contract_end_reason}">
+          <input type="hidden" th:field="*{wlSContract.contract_maturity_date}">
+          <input type="hidden" th:field="*{wlSContract.security_type}">
+          <input type="hidden" th:field="*{wlSContract.entry_age}">
+          <input type="hidden" th:field="*{wlSContract.payment_method}">
+          <input type="hidden" th:field="*{wlSContract.insurance_money}">
+          <input type="hidden" th:field="*{wlSContract.premium}">
+          <input type="hidden" th:field="*{wlSContract.premium_payment_term}">
+          <input type="hidden" th:field="*{wlSContract.contract_term}">
+          <input type="hidden" th:field="*{wlSContract.payment_expiration_age}">
+          <input type="hidden" th:field="*{wlSContract.c_update_at}">
+          <input type="hidden" th:field="*{wlSContract.payment_control_id}">
+          <input type="hidden" th:field="*{wlSContract.payment_amount}">
+          <input type="hidden" th:field="*{wlSContract.p_update_at}">
+          <input type="hidden" th:field="*{select_cancel}">
+          <input type="hidden" th:field="*{cancel_date}">
+
+      </form>
+
+
+        <form th:method="post" th:action="@{/wl/k/contract}" th:object="${wlKConfimation}">
+
+          <table class="Date-box-cancel">
+            <tbody>
+              <tr class="Cancel-title"><td><div class="Date-box-cancel-title">解約・取消　区分</div></td> </tr>
+              <tr class="Cancel-input">
+                <td>
+                  <div class="Select_cancel_label">
+                    <div th:if="*{select_cancel=='1'}"><div class="Select_cancel_value" th:text="解約"></div></div>
+                    <div th:if="*{select_cancel=='2'}"><div class="Select_cancel_value" th:text="取消"></div></div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+
+            <tbody>
+                <tr class="Cancel-title"><td>
+                  <div th:if="*{select_cancel=='1'}">
+                    <div class="Date-box-show Date-box-cancel-title">解約日</div>
+                  </div>
+                  <div th:if="*{select_cancel=='2'}">
+                    <div class="Date-box-show Date-box-cancel-title">取消日（＝契約発効日）</div>
+                  </div>
+                  </td></tr>
+
+                <tr class="Cancel-input">
+                  <td>
+                    <div th:if="*{select_cancel=='1'}">
+                      <div class="Select_cancel_label">
+                        <div class="Select_cancel_value" th:text="*{cancel_date}"></div>
+                      </div>
+                    </div>
+                    <div th:if="*{select_cancel=='2'}">
+                      <div class="Select_cancel_label">
+                        <div class="Select_cancel_value"
+                              th:text=  "*{#strings.substring(wlSContract.contract_start_date,0,4)} + '/'
+                                       + *{#strings.substring(wlSContract.contract_start_date,4,6)} + '/'
+                                       + *{#strings.substring(wlSContract.contract_start_date,6,8)}">
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+            </tbody>
+
+            <tbody>
+              <tr class="Cancel-title"><td><div class="Date-box-cancel-title">解約返戻金</div></td> </tr>
+              <tr class="Cancel-input">
+                <td>
+                  <div th:if="*{select_cancel=='1'}">
+                    <div class="Select_cancel_label">
+                      <div th:if="*{cancellation_refund != 0}">
+                        <div class="Select_cancel_value"
+                             th:text="|*{#numbers.formatInteger(cancellation_refund, 3, 'COMMA')}　円|"></div>
+                      </div>
+                      <div th:if="*{cancellation_refund == 0}">
+                        <div class="Select_cancel_value" th:text="|*{cancellation_refund}　円|"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div th:if="*{select_cancel=='2'}">
+                    <div class="Select_cancel_label">
+                      <div class="Select_cancel_value" th:text="|0　円|"></div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+
+            <tbody>
+              <tr><td>
+                <div id="confirmation_btn" class="Control-area-cancel">
+                  <button class="Control-area__btn Control-area__btn-cancel">更新</button>
+                </div>
+              </td></tr>
+
+          </table>
+
+          <!--照会画面の情報は、解約・取消処理を行なうために必要なため、引き継ぐ -->
+          <input type="hidden" th:field="*{wlSContract.insured_person_id}">
+          <input type="hidden" th:field="*{wlSContract.insured_person_name_kanji}">
+          <input type="hidden" th:field="*{wlSContract.insured_person_name_kana}">
+          <input type="hidden" th:field="*{wlSContract.insured_person_birth_date}">
+          <input type="hidden" th:field="*{wlSContract.insured_person_sex}">
+          <input type="hidden" th:field="*{wlSContract.ip_update_at}">
+          <input type="hidden" th:field="*{wlSContract.contract_id}">
+          <input type="hidden" th:field="*{wlSContract.contract_history_id}">
+          <input type="hidden" th:field="*{wlSContract.contract_start_date}">
+          <input type="hidden" th:field="*{wlSContract.contract_end_date}">
+          <input type="hidden" th:field="*{wlSContract.contract_end_reason}">
+          <input type="hidden" th:field="*{wlSContract.contract_maturity_date}">
+          <input type="hidden" th:field="*{wlSContract.security_type}">
+          <input type="hidden" th:field="*{wlSContract.entry_age}">
+          <input type="hidden" th:field="*{wlSContract.payment_method}">
+          <input type="hidden" th:field="*{wlSContract.insurance_money}">
+          <input type="hidden" th:field="*{wlSContract.premium}">
+          <input type="hidden" th:field="*{wlSContract.premium_payment_term}">
+          <input type="hidden" th:field="*{wlSContract.contract_term}">
+          <input type="hidden" th:field="*{wlSContract.payment_expiration_age}">
+          <input type="hidden" th:field="*{wlSContract.c_update_at}">
+          <input type="hidden" th:field="*{wlSContract.payment_control_id}">
+          <input type="hidden" th:field="*{wlSContract.payment_amount}">
+          <input type="hidden" th:field="*{wlSContract.p_update_at}">
+          <input type="hidden" th:field="*{select_cancel}">
+          <input type="hidden" th:field="*{cancel_date}">
+          <input type="hidden" th:field="*{cancellation_refund}">
+
+        </form>
+
+    </div>
+
+  </div>
+
+</body>
+</html>

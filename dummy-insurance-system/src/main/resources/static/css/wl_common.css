@@ -346,11 +346,28 @@ form: フォーム共通
 
 .Date-box-cancel-title{
   text-align: left;
+  margin-top: 15px;
 }
 
 .Date-box-cancel{
-  margin: 0px auto;
+  margin: 2% auto;
   text-align: center;
+}
+
+.Date-label-cancel{
+  margin: 0px auto;
+}
+
+.Refund-label-cancel{
+  margin: 3% auto;
+}
+
+.Cancel-title{
+	height:46px;
+}
+
+.Cancel-input{
+  height:41px;
 }
 
 /* フォームパーツ
@@ -442,6 +459,7 @@ form: フォーム共通
 	text-align: center;
   font-size: 20px;
   margin: 100px auto;
+  color: #dc3545!important;
 }
 
 /* 送信
@@ -455,6 +473,12 @@ form: フォーム共通
 .Control-area-cancel{
   position: relative;
   margin: 50px auto 0 auto;
+  text-align: center;
+}
+
+.Control-area-cancel-confi{
+  position: relative;
+  margin: 14% auto 0 auto;
   text-align: center;
 }
 
@@ -482,6 +506,16 @@ form: フォーム共通
   margin: 0px 10px;
   padding:0rem .75rem;
 }
+
+.btn-link-k-return{
+  position: absolute;
+  top: 4%;
+  left: 90%;
+  font-size: 2.1rem;
+  margin: 0px 10px;
+  padding:0rem .75rem;
+}
+
 .Control-area__btn:hover{
   opacity: .8;
 }
@@ -560,7 +594,17 @@ form: フォーム共通
 }
 
 .Select-wrap-cancel{
-  margin: 3% auto;
+  margin: auto;
+}
+
+.Select_cancel_label{
+	background:#f0fff0;
+  border-radius: 4px;
+  border: 1px solid #3f5d26;
+}
+
+.Select_cancel_value{
+	padding: 2px;
 }
 
 /*----------------------------------------------------*/
@@ -692,8 +736,8 @@ form: フォーム共通
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 50%;
-  height: 55%;
+  width: 60%;
+  height: 70%;
   background-color: #f0f8ff;
   border-radius: 5px;
   z-index: 11;

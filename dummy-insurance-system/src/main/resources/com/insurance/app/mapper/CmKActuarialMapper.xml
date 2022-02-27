@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.insurance.app.mapper.CmKActuarialMapper">
+
+  <!-- 掛金単価（年齢別）を取得 -->
+  <select id="cancellationRefundCalculation" resultType="Integer">
+  select unit_price_premium_age from
+    <choose>
+      <when test="security_type == 'TC'">
+        tc_actuarial_age
+      </when>
+      <when test="security_type == 'TL'">
+        tl_actuarial_age
+      </when>
+      <when test="security_type == 'WC'">
+        wc_actuarial_age
+      </when>
+      <when test="security_type == 'WL'">
+        wl_actuarial_age
+      </when>
+    </choose>
+    where (security_type              = #{security_type}
+      and  insured_person_sex         = #{insured_person_sex}
+      and  payment_method             = #{payment_method}
+      <choose>
+        <when test="security_type == 'TC' or security_type == 'TL'">
+          and  premium_payment_term   = #{premium_payment_term}
+        </when>
+        <when test="security_type == 'WC' or security_type == 'WL'">
+          and  payment_expiration_age = #{payment_expiration_age}
+        </when>
+      </choose>
+      and  entry_age              &gt;= #{entry_age}
+      and  entry_age              &lt;= #{corresponding_age})
+  </select>
+
+</mapper>

@@ -20,36 +20,115 @@
 
 <body>
 
-  <input type="hidden" id="screen_info" th:value="${screen_info}">
-  <!-- 解約・取消　入力画面を表示する（screen_info == 'input'　の場合） -->
-  <div th:if="${screen_info == 'input'}"><div th:include="wl_k_input :: k_input"></div></div>
+<!-- 解約／取消　確認画面（モーダルウィンドウで表示） -->
+<div id="overlay" class="overlay"></div>
+<!--<div class="modal-window"> -->
 
-  <!-- 解約・取消　確認画面を表示する（screen_info == 'confirmation'　の場合） -->
-  <div th:if="${screen_info == 'confirmation'}"><div th:include="wl_k_confirmation :: k_confirmation"></div></div>
+  <div class="subtitle">解約／取消　確認画面（作成中）</div>
 
+    <!-- <button class="js-close button-close" th:text="'×'"></button> -->
+
+    <form th:method="post" th:action="@{/wl/s/contract}" th:object="${wlKConfimation}">
+      <div class="Input-Form-cancel">
+        <div class="Date-box--w03">
+          <div id="expiration_age" class="Select-wrap Select-wrap-cancel">
+            <div class="Form-tbl__td_completion">
+              <div th:if="*{select_cancel=='1'}"><div th:text="解約"></div></div>
+              <div th:if="*{select_cancel=='2'}"><div th:text="取消"></div></div>
+            </div>
+            <!--
+            <select class="Custom-select"  th:field="*{select_cancel}" >
+              <option label="解約"  value="1" >解約</option>
+              <option label="取消"  value="2" >取消</option>
+            </select>
+            -->
+          </div>
+        </div>
+
+        <table id="cancel-date-table" class="Date-box-cancel">
+          <tr><td><div class="Date-box-cancel-title">解約日</div></td> </tr>
+          <tr>
+            <td>
+              <div>
+                <div class="Form-tbl__td_completion">
+                  <div th:text="*{cancel_date}"></div>
+                </div>
+              </div>
+            </td>
+          </tr>
+
+          <tr><td><div class="Date-box-cancel-title">解約返戻金</div></td> </tr>
+          <tr>
+            <td>
+              <div>
+                <div class="Form-tbl__td_completion">
+                  <div th:text="*{cancellation_refund}"></div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!--照会画面の情報は、解約・取消処理を行なうために必要なため、引き継ぐ -->
+      <input type="hidden" th:field="*{wlSContract.insured_person_id}">
+      <input type="hidden" th:field="*{wlSContract.insured_person_name_kanji}">
+      <input type="hidden" th:field="*{wlSContract.insured_person_name_kana}">
+      <input type="hidden" th:field="*{wlSContract.insured_person_birth_date}">
+      <input type="hidden" th:field="*{wlSContract.insured_person_sex}">
+      <input type="hidden" th:field="*{wlSContract.ip_update_at}">
+      <input type="hidden" th:field="*{wlSContract.contract_id}">
+      <input type="hidden" th:field="*{wlSContract.contract_history_id}">
+      <input type="hidden" th:field="*{wlSContract.contract_start_date}">
+      <input type="hidden" th:field="*{wlSContract.contract_end_date}">
+      <input type="hidden" th:field="*{wlSContract.contract_end_reason}">
+      <input type="hidden" th:field="*{wlSContract.contract_maturity_date}">
+      <input type="hidden" th:field="*{wlSContract.security_type}">
+      <input type="hidden" th:field="*{wlSContract.entry_age}">
+      <input type="hidden" th:field="*{wlSContract.payment_method}">
+      <input type="hidden" th:field="*{wlSContract.insurance_money}">
+      <input type="hidden" th:field="*{wlSContract.premium}">
+      <input type="hidden" th:field="*{wlSContract.premium_payment_term}">
+      <input type="hidden" th:field="*{wlSContract.contract_term}">
+      <input type="hidden" th:field="*{wlSContract.payment_expiration_age}">
+      <input type="hidden" th:field="*{wlSContract.c_update_at}">
+      <input type="hidden" th:field="*{wlSContract.payment_control_id}">
+      <input type="hidden" th:field="*{wlSContract.payment_amount}">
+      <input type="hidden" th:field="*{wlSContract.p_update_at}">
+
+      <br>
+      <br>
+      <br>
+      <br>
+      <div id="confirmation_btn" class="Control-area-cancel">
+        <button class="Control-area__btn Control-area__btn-cancel">更新</button>
+      </div>
+
+    </form>
+
+<!--    </div> -->
+<!--
   <header class="Header">
     <div class="Header__inner">
-      <a href="/cm/s/security">ダミー保険事務処理システム</a><!--  <a href="/cm/list">戻る</a> -->
+      <a href="/cm/s/security">ダミー保険事務処理システム</a>
       <div class="mod_dropnavi ex_clearfix">
+      <ul>
+      <li class="parent"><a href="javascript:void(0)">メニュー</a>
+        <div class="mod_dropnavi_child">
         <ul>
-          <li class="parent"><a href="javascript:void(0)">メニュー</a>
-            <div th:if="${screen_info == 'input'}">
-              <div class="mod_dropnavi_child">
-                <ul>
-                  <li><button class="btn js-open button-open">解約／取消</button></li>
-                  <li>
-                    <form th:method="post" th:action="@{/wl/s/list}" th:object="${wlSSearch}" >
-                      <input type="hidden" th:field="*{insured_person_id_str}">
-                      <button class="btn">一覧へ戻る</button>
-                    </form>
-                  </li>
-                </ul>
-              </div>
-            </div>
+          <li><button class="btn js-open button-open">解約／取消</button></li>
+          <li>
+            <form th:method="post" th:action="@{/wl/s/list}" th:object="${wlSSearch}" >
+              <input type="hidden" th:field="*{insured_person_id_str}">
+              <button class="btn">一覧へ戻る</button>
+            </form>
           </li>
         </ul>
       </div>
-    </div>
+      </li>
+      </ul>
+      </div>
+      </div>
   </header>
 
   <div class="container">
@@ -58,7 +137,7 @@
 
 
 
-  <table class="table_completion" th:object="${wlKInput.wlSContract}">
+  <table class="table_completion" th:object="${wlSContract}">
     <tr>
       <td class="td_completion">
         <div class="Box-flame">
@@ -96,7 +175,6 @@
                 <th class="Form-tbl__th_comp"><div class="Form-name">生年月日</div></th>
 
                 <td class="Form-tbl__td_completion">
-                  <!--  <div th:text="*{#temporals.format(insured_person_birth_date, 'yyyy/MM/dd')}">-->
                   <div th:text=  "*{#strings.substring(insured_person_birth_date,0,4)} + '/'
                                 + *{#strings.substring(insured_person_birth_date,4,6)} + '/'
                                 + *{#strings.substring(insured_person_birth_date,6,8)}">
@@ -206,12 +284,6 @@
                   <th class="Form-tbl__th_comp"><div class="Form-name">契約満期日</div></th>
                   <td class="Form-tbl__td_completion">
                     <div th:text="終身"></div>
-                    <!--
-                    <div th:text=  "*{#strings.substring(contract_maturity_date,0,4)} + '/'
-                                  + *{#strings.substring(contract_maturity_date,4,6)} + '/'
-                                  + *{#strings.substring(contract_maturity_date,6,8)}">
-                    </div>
-                    -->
                   </td>
               </tr>
               <tr class="Form-tbl__tr">
@@ -281,13 +353,8 @@
       </td>
     </tr>
   </table>
-
-  <div id="update_end" style="display:none;">
-    <p th:text="${update_end_message}"></p>
-  </div>
-
   <br>
   <br>
-
+-->
 </body>
 </html>

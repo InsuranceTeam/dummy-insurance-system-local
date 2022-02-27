@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.insurance.app.domain.WlSContract;
+import com.insurance.app.domain.WlKInput;
 import com.insurance.app.domain.WlSList;
 import com.insurance.app.domain.WlSSearch;
 import com.insurance.app.service.WlSService;
@@ -86,9 +86,15 @@ public class WlSController {
             int insured_person_id = Integer.parseInt(contract_keys[0]);
             int contract_id       = Integer.parseInt(contract_keys[1]);
 
+            WlKInput wlKInput = new WlKInput();
+
             //照会用の契約情報を取得する（現在は１契約１履歴なので、先頭の履歴のみ取得する）
-            WlSContract wlSContract = wlSService.getWlSContract(insured_person_id, contract_id).get(0);
-            model.addAttribute("wlSContract", wlSContract);
+            wlKInput.setWlSContract(wlSService.getWlSContract(insured_person_id, contract_id).get(0));
+
+            //解約・取消入力画面用のエリアを設定
+            model.addAttribute("wlKInput", wlKInput);
+            model.addAttribute("overlay_display", "0");
+            model.addAttribute("screen_info", "input");
 
             //契約一覧へ戻るための値を設定する
             WlSSearch wlSSearch = new WlSSearch();
